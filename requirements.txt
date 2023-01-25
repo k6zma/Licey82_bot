@@ -1,0 +1,2 @@
+aiogram==2.24
+telegram==0.0.1
