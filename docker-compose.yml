@@ -4,8 +4,6 @@ services:
   bot:
     build: .
     command: sh -c "python -m bot_telegram"
-    env_file:
-      -./.env
     restart: always
 
 volumes:
