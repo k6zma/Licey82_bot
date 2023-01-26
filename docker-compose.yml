@@ -3,9 +3,10 @@ version: "3"
 services:
   bot:
     build: .
-    container_name: Licey_Bot
-    command: python bot_telegram.py
-    ports:
-      - 80:80
-    volumes:
-      - ./:/app
+    command: sh -c "python -m bot_telegram"
+    env_file:
+      -./.env
+    restart: always
+
+volumes:
+ pgdata:
