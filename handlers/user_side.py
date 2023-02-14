@@ -13,8 +13,8 @@ async def start_command(message: types.Message):
         await sqlite_db.add_user(message.from_user.id)
 
     await bot.send_message(message.chat.id, 'Здарова! Я бот Лицея №82. Помощь по командам /help')
-    await bot.send_message(message.chat.id, 'Выбери класс в котором учишься, либо напиши любой текст'
-                                            'что-бы пропустить это',
+    await bot.send_message(message.chat.id, 'Выбери класс в котором учишься, либо напиши любой текст,'
+                                            'чтобы пропустить это',
                            reply_markup=usually_kb.group_keyboard(await sqlite_db.get_all_groups()))
     await states.StartStates.group_name.set()
 
@@ -31,6 +31,10 @@ async def start_state(message: types.Message, state: FSMContext):
                                                 ' выбрать его с помощью /select_group',
                                reply_markup=types.ReplyKeyboardRemove())
     await state.finish()
+
+@dp.message_handler(commands=['help'])
+async def send_welcome(message: types.Message):
+    await message.reply("Так, вижу ты не знаешь команды, ну ничего страшного, держи список этих комманд: \n • /start - начало работы с ботом  \n • /select_group - выбор класса \n • /delete_me_from_group - этой командой вы можете удалить себя из текущей группы \n • /news - узнайте самые свежие новости нашего Лицея")
 
 
 @dp.message_handler(commands=['select_group'])
